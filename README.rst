@@ -1,4 +1,5 @@
-Social shares.
+Social shares
+=============
 
 A command-line utility and Python library to access the social share
 counts for a particular URL.
@@ -6,11 +7,16 @@ counts for a particular URL.
 Usage
 ~~~~~
 
-Usage: socialshares [...] [options]
+::
 
-Options: -h, --help Show this screen. -p, --plain Plain output. -r ,
---retry Retry fetching up to times [default: 1] -e, --exit Exit with an
-error code when not all counts could be fetched.
+    Usage:
+      socialshares <url> [<platforms>...] [options]
+
+    Options:
+      -h, --help  Show this screen.
+      -p, --plain  Plain output.
+      -r <attempts>, --retry <attempts>  Retry fetching up to <attempt> times [default: 1]
+      -e, --exit  Exit with an error code when not all counts could be fetched.
 
 Some examples:
 
