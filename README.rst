@@ -22,7 +22,8 @@ Some examples:
 
 .. code:: sh
 
-    # fetch count for all supported platforms, try up to three times
+    # fetch count for all supported platforms, 
+    # try again once (the default) for platforms that fail
     $ socialshares http://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/
 
     # fetch only facebook and twitter
