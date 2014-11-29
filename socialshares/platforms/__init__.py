@@ -23,4 +23,4 @@ def get(name):
         platform.name = name
         return platform
     else:
-        raise ValueError("Could not find a platform matching " + domain)
+        raise ValueError("Could not find a platform matching " + name)
