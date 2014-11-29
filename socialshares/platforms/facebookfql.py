@@ -1,5 +1,5 @@
 import grequests
-from urllib import urlencode
+from collections import OrderedDict
 
 query = 'SELECT comment_count, like_count, share_count FROM link_stat WHERE url = "{}"'
 
@@ -12,11 +12,14 @@ def parse(response):
     if response.status_code != 200:
         raise IOError()
 
+    # for --plain output on the command-line, it is essential
+    # that the order in which counts are output doesn't change
+    # around, hence the ordered dictionary
     data = response.json()['data'][0]
-    social = {
-        'comments': data['comment_count'], 
-        'shares': data['share_count'], 
-        'likes': data['like_count'], 
-        }
+    social = OrderedDict((
+        ('likes', data['like_count']), 
+        ('shares', data['share_count']), 
+        ('comments', data['comment_count']), 
+        ))
 
     return social
