@@ -85,25 +85,19 @@ import socialshares
 
 
 def main():
-    arguments = docopt(__doc__, version='Social shares 0.1')
+    arguments = docopt(__doc__, version='Social shares 0.3')
     url = arguments['<url>']
     attempts = int(arguments['--retry']) + 1
     plain = arguments['--plain']
     strict = arguments['--exit']
     platforms = arguments['<platforms>'] or socialshares.platforms.default
-    todo = set(platforms)
 
-    counts = {}
-    attempt = 0
-    while len(todo) and attempt < attempts:
-        attempts = attempts + 1
-        partial = socialshares.fetch(url, platforms)
-        todo = todo.difference(partial)
-        counts.update(partial)
-
-    if strict and len(counts) < len(platforms):
+    try:
+        counts = socialshares.fetch(url, platforms, attempts=attempts, strict=strict)
+    except IOError:
         sys.exit(1)
-    elif plain:
+
+    if plain:
         print " ".join(map(str, counts.values()))
     else:
         print json.dumps(counts, indent=2)

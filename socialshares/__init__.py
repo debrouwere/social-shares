@@ -1,22 +1,24 @@
 import grequests
 import command
-import platforms
+import platforms as fetchers
 
-requests = []
 
-def fetch(url, requested_platforms):
-    for platform in requested_platforms:
-        if not platform in platforms.supported:
+def fetch_once(url, platforms):
+    handlers = []
+    requests = []
+
+    for platform in platforms:
+        if platform in fetchers.supported:
+            handler = fetchers.get(platform)
+            handlers.append(handler)
+            requests.append(handler.fetch(url))
+        else:
             raise ValueError()
-
-        handler = platforms.get(platform)
-        requests.append(handler.fetch(url))
-
+        
     responses = grequests.map(requests)
 
     counts = {}
-    for response in responses:
-        handler = platforms.find(response.url)
+    for handler, response in zip(handlers, responses):
         # * ValueErrors indicate no JSON could be decoded
         # * KeyErrors and IndexErrors indicate the JSON didn't 
         #   contain the data we were looking for
@@ -26,5 +28,22 @@ def fetch(url, requested_platforms):
             counts[handler.name] = handler.parse(response)
         except (IOError, ValueError, KeyError, IndexError):
             pass
+
+    return counts
+
+
+def fetch(url, platforms=platforms.default, attempts=2, strict=False):
+    counts = {}
+    attempt = 0
+    todo = set(platforms)
+    while len(todo) and attempt < attempts:
+        attempt = attempt + 1
+        partial = fetch_once(url, todo)
+        todo = todo.difference(partial)
+        counts.update(partial)
+
+    if strict and len(counts) < len(platforms):
+        failures = ", ".join(todo)
+        raise IOError("Could not fetch all requested sharecounts. Failed: " + failures)
 
     return counts

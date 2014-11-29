@@ -1,5 +1,5 @@
 import urlparse
-import delicious, facebook, google, linkedin, pinterest, reddit, twitter
+import delicious, facebook, facebookfql, google, linkedin, pinterest, reddit, twitter
 
 default = [
     'facebook', 
@@ -7,9 +7,10 @@ default = [
     ]
 
 supported = default + [
-    #'delicious', 
+    # 'delicious', 
+    'facebookfql', 
     'google', 
-    #'linkedin', 
+    'linkedin', 
     'pinterest', 
     'reddit', 
     ]
@@ -23,8 +24,3 @@ def get(name):
         return platform
     else:
         raise ValueError("Could not find a platform matching " + domain)
-
-def find(domain):
-    hostname = urlparse.urlparse(domain).hostname
-    name = hostname.split('.')[-2]
-    return get(name)
