@@ -3,7 +3,7 @@ all:
 		> README.md
 	pandoc -o README.rst README.md
 
-upload:
+package:
 	python setup.py sdist upload
 
 URL := http://www.theguardian.com/politics/2014/sep/08/pound-slumps-scottish-yes-campaign-poll-lead
