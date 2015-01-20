@@ -1,7 +1,10 @@
-import grequests
+try:
+    import grequests as requests
+except ImportError:
+    import requests
 
 def fetch(url):
-    return grequests.get('http://www.linkedin.com/countserv/count/share', 
+    return requests.get('http://www.linkedin.com/countserv/count/share', 
         params={'url': url, 'format': 'json'})
 
 def parse(response):

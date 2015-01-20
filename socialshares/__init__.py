@@ -1,7 +1,14 @@
-import grequests
+try:
+    import grequests
+    request = grequests.map
+except ImportError:
+    import requests
+    request = lambda responses: responses
 import command
-import platforms as fetchers
+import platforms
 
+
+fetchers = platforms
 
 def fetch_once(url, platforms):
     handlers = []
@@ -15,7 +22,7 @@ def fetch_once(url, platforms):
         else:
             raise ValueError()
         
-    responses = grequests.map(requests)
+    responses = request(requests)
 
     counts = {}
     for handler, response in zip(handlers, responses):

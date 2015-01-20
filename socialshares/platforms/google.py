@@ -1,5 +1,8 @@
 import json
-import grequests
+try:
+    import grequests as requests
+except ImportError:
+    import requests
 
 def fetch(url):
     body = json.dumps({
@@ -14,7 +17,7 @@ def fetch(url):
         'jsonrpc': '2.0', 
         'apiVersion': 'v1'
         })
-    return grequests.post('https://clients6.google.com/rpc', data=body)
+    return requests.post('https://clients6.google.com/rpc', data=body)
 
 def parse(response):
     if response.status_code != 200:
