@@ -1,6 +1,8 @@
 Social shares
 =============
 
+|Build Status|
+
 A command-line utility and Python library to access the social share
 counts for a particular URL.
 
@@ -93,3 +95,5 @@ Installation
 
     pip install socialshares
 
+.. |Build Status| image:: https://travis-ci.org/debrouwere/social-shares.svg?branch=master
+   :target: https://travis-ci.org/debrouwere/social-shares

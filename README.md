@@ -1,5 +1,7 @@
 # Social shares
 
+[![Build Status](https://travis-ci.org/debrouwere/social-shares.svg?branch=master)](https://travis-ci.org/debrouwere/social-shares)
+
 A command-line utility and Python library to access the social share counts for a particular URL.
 
 ### Usage
