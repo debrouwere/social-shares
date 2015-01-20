@@ -14,49 +14,50 @@ def is_close(a, b):
 
 class PythonTestCase(unittest.TestCase):
     def test_facebook(self):
-        counts = socialshares.fetch(url, ['facebook'])
+        counts = socialshares.fetch(url, ['facebook'], attempts=5)
         self.assertIn('facebook', counts)
         self.assertIsInstance(counts['facebook'], int)
 
     def test_facebookfql(self):
-        counts = socialshares.fetch(url, ['facebookfql'])
+        counts = socialshares.fetch(url, ['facebookfql'], attempts=5)
         self.assertIn('facebookfql', counts)
         self.assertIsInstance(counts['facebookfql'], dict)
 
     def test_google(self):
-        counts = socialshares.fetch(url, ['google'])
+        counts = socialshares.fetch(url, ['google'], attempts=5)
         self.assertIn('google', counts)
         self.assertIsInstance(counts['google'], int)
 
     def test_linkedin(self):
-        counts = socialshares.fetch(url, ['linkedin'])
+        counts = socialshares.fetch(url, ['linkedin'], attempts=5)
         self.assertIn('linkedin', counts)
         self.assertIsInstance(counts['linkedin'], int)
 
     def test_pinterest(self):
-        counts = socialshares.fetch(url, ['pinterest'])
+        counts = socialshares.fetch(url, ['pinterest'], attempts=5)
         self.assertIn('pinterest', counts)
         self.assertIsInstance(counts['pinterest'], int)
 
     def test_reddit(self):
-        counts = socialshares.fetch(url, ['reddit'])
+        counts = socialshares.fetch(url, ['reddit'], attempts=5)
         self.assertIn('reddit', counts)
         self.assertIsInstance(counts['reddit'], dict)
 
     def test_twitter(self):
-        counts = socialshares.fetch(url, ['twitter'])
+        counts = socialshares.fetch(url, ['twitter'], attempts=5)
         self.assertIn('twitter', counts)
         self.assertIsInstance(counts['twitter'], int)
 
     def test_default(self):
-        counts = socialshares.fetch(url)
-        self.assertEquals(set(counts.keys()), set(['facebook', 'twitter']))
+        counts = socialshares.fetch(url, attempts=10)
+        self.assertEquals(set(counts.keys()), set(socialshares.platforms.default))
 
     def test_all(self):
-        all_counts = socialshares.fetch(url, socialshares.platforms.supported)
-        
+        counts = socialshares.fetch(url, socialshares.platforms.supported, attempts=10)
+        self.assertEquals(set(counts.keys()), set(socialshares.platforms.supported))
+
     # requires stubs / spies
-    def test_retry(self):
+    def test_attempts(self):
         pass
 
     def test_strict(self):
