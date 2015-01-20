@@ -78,4 +78,11 @@ counts = socialshares.fetch(url, ['facebook', 'pinterest'])
 
 ```sh
 pip install socialshares
+# optionally, for asynchronous fetching
+pip install grequests
 ```
+
+If [grequests](https://github.com/kennethreitz/grequests) is installed, 
+`social-shares` will use it to speed up share count fetching. However, 
+note that `grequests` can be wonky, in particular on Python 2.7.9.
+If you see any errors, `pip uninstall grequests`.
