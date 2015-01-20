@@ -28,15 +28,17 @@ $ socialshares http://www.theguardian.com/politics facebook twitter     --retry 
 
 ### Supported platforms
 
-Platform   | Description
----------- | -----------
-google     | google +1's
-facebook   | facebook likes
-pinterest  | pinterest pins
-reddit     | reddit ups and downs (summed across posts)
-twitter    | twitter tweets and retweets containing the URL
+Platform    | Description
+----------- | -----------
+twitter     | twitter tweets and retweets containing the URL
+facebook    | facebook likes
+facebookfql | facebook likes, shares and comments (in that order; deprecated but supported until mid-2016)
+linkedin    | linkedin shares
+google      | google +1's
+pinterest   | pinterest pins
+reddit      | reddit ups and downs (summed across posts)
 
-Platforms are fetched in parallel and retried (once by default).
+Platforms are fetched in parallel and retried (once by default.)
 If no platforms are specified, just facebook and twitter will be returned.
 
 ### Output

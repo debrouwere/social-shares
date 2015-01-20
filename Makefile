@@ -9,10 +9,4 @@ package:
 URL := http://www.theguardian.com/politics/2014/sep/08/pound-slumps-scottish-yes-campaign-poll-lead
 
 test:
-	socialshares $(URL) --retry 0;
-	for platform in facebook facebookfql twitter google pinterest reddit linkedin; \
-	do \
-		echo $$platform; \
-		socialshares $(URL) $$platform --retry 0; \
-	done 
-	
+	python setup.py test
