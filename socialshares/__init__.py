@@ -1,16 +1,15 @@
-try:
-    import grequests
-    request = grequests.map
-except ImportError:
-    import requests
-    request = lambda responses: responses
-import command
-import platforms
+from . import utils
+from . import command
+from . import platforms
 
 
-fetchers = platforms
+headers = {
+    'User-Agent': 'Pollster <https://github.com/debrouwere/pollster>',
+}
 
-def fetch_once(url, platforms):
+fetchers = platforms    
+
+def fetch_once(session, url, platforms):
     handlers = []
     requests = []
 
@@ -18,11 +17,11 @@ def fetch_once(url, platforms):
         if platform in fetchers.supported:
             handler = fetchers.get(platform)
             handlers.append(handler)
-            requests.append(handler.fetch(url))
+            requests.append(handler.fetch(session, url))
         else:
             raise ValueError()
         
-    responses = request(requests)
+    responses = utils.get_responses(requests)
 
     counts = {}
     for handler, response in zip(handlers, responses):
@@ -39,13 +38,14 @@ def fetch_once(url, platforms):
     return counts
 
 
-def fetch(url, platforms=platforms.default, attempts=2, strict=False):
+def fetch(url, platforms=platforms.default, attempts=2, strict=False, concurrent=None):
+    session = utils.create_session(concurrent=concurrent, headers=headers)
     counts = {}
     attempt = 0
     todo = set(platforms)
     while len(todo) and attempt < attempts:
         attempt = attempt + 1
-        partial = fetch_once(url, todo)
+        partial = fetch_once(session, url, todo)
         todo = todo.difference(partial)
         counts.update(partial)
 
