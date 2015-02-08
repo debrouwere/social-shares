@@ -98,7 +98,7 @@ import socialshares
 
 
 def main():
-    arguments = docopt(__doc__, version='Social shares ' + socialshares.__VERSION__)
+    arguments = docopt(__doc__, version='Social shares ' + socialshares.__version__)
     url = arguments['<url>']
     attempts = int(arguments['--retry']) + 1
     plain = arguments['--plain']

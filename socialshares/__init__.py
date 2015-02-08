@@ -1,9 +1,11 @@
+import pkg_resources
+
 from . import utils
 from . import command
 from . import platforms
 
 
-__VERSION__ = '1.0.0'
+__version__ = pkg_resources.get_distribution("socialshares").version
 
 
 headers = {
