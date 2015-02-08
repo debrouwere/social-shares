@@ -1,7 +1,9 @@
 language: python
 python:
-  - "2.7"
-  - "3.4"
-install: pip install socialshares requests_futures futures
+    - "2.7"
+    - "3.4"
+install:
+    - python setup.py install
+    - pip install futures requests_futures
 script: python setup.py test
 sudo: false
