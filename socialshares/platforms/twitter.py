@@ -1,11 +1,6 @@
-try:
-    import grequests as requests
-except ImportError:
-    import requests
-
-def fetch(url):
+def fetch(session, url):
     # twitter doesn't like urlencoded querystring arguments
-    return requests.get('http://urls.api.twitter.com/1/urls/count.json?url=' + url)
+    return session.get('http://urls.api.twitter.com/1/urls/count.json?url=' + url)
 
 def parse(response):
     if response.status_code != 200:

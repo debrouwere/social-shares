@@ -1,10 +1,5 @@
-try:
-    import grequests as requests
-except ImportError:
-    import requests
-
-def fetch(url):
-    return requests.get('http://buttons.reddit.com/button_info.json',
+def fetch(session, url):
+    return session.get('http://buttons.reddit.com/button_info.json',
         params={'format': 'json', 'url': url})
 
 def parse(response):

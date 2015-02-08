@@ -1,13 +1,9 @@
 import re
 import json
-try:
-    import grequests as requests
-except ImportError:
-    import requests
 
-def fetch(url):
+def fetch(session, url):
     # pinterest doesn't like it when we urlencode the url
-    return requests.get('http://api.pinterest.com/v1/urls/count.json?url=' + url)
+    return session.get('http://api.pinterest.com/v1/urls/count.json?url=' + url)
 
 def parse_jsonp(response):
     text = response.text

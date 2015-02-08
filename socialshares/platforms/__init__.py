@@ -1,4 +1,4 @@
-import delicious, facebook, facebookfql, google, linkedin, pinterest, reddit, twitter
+from . import delicious, facebook, facebookfql, google, linkedin, pinterest, reddit, twitter
 
 default = [
     'facebook', 

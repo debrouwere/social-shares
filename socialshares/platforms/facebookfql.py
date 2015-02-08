@@ -1,13 +1,9 @@
-try:
-    import grequests as requests
-except ImportError:
-    import requests
 from collections import OrderedDict
 
 query = 'SELECT comment_count, like_count, share_count FROM link_stat WHERE url = "{}"'
 
-def fetch(url):
-    return requests.get('https://graph.facebook.com/fql', params={
+def fetch(session, url):
+    return session.get('https://graph.facebook.com/fql', params={
         'q': query.format(url), 
         })
 
