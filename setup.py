@@ -1,4 +1,6 @@
 from setuptools import setup, find_packages
+import socialshares
+
 
 setup(name='socialshares',
     description='A command-line and programmatic interface to various social sharecount endpoints.',
@@ -7,7 +9,7 @@ setup(name='socialshares',
     author_email='stijn@debrouwere.org',
     url='https://github.com/debrouwere/social-shares',
     download_url='https://github.com/debrouwere/social-shares/tarball/master',
-    version='0.4.2',
+    version=socialshares.__VERSION__,
     license='ISC',
     packages=find_packages(),
     keywords='data analytics facebook twitter googleplus pinterest',
@@ -19,10 +21,10 @@ setup(name='socialshares',
     test_suite='socialshares.tests', 
     install_requires=[
         'docopt', 
-        'requests'
+        'requests', 
     ], 
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',

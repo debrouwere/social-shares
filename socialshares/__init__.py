@@ -3,6 +3,9 @@ from . import command
 from . import platforms
 
 
+__VERSION__ = '1.0.0'
+
+
 headers = {
     'User-Agent': 'Pollster <https://github.com/debrouwere/pollster>',
 }
@@ -53,4 +56,5 @@ def fetch(url, platforms=platforms.default, attempts=2, strict=False, concurrent
         failures = ", ".join(todo)
         raise IOError("Could not fetch all requested sharecounts. Failed: " + failures)
 
+    session.close()
     return counts

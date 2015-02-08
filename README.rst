@@ -97,10 +97,11 @@ Installation
     # optionally, for asynchronous fetching
     pip install grequests
 
-If `grequests <https://github.com/kennethreitz/grequests>`__ is
-installed, ``social-shares`` will use it to speed up share count
-fetching. However, note that ``grequests`` can be wonky, in particular
-on Python 2.7.9. If you see any errors, ``pip uninstall grequests``.
+If `requests\_futures <https://github.com/ross/requests-futures>`__ and
+(for Python 2.x) `futures <https://code.google.com/p/pythonfutures/>`__
+are installed, ``social-shares`` will use these packages to speed up
+share count fetching, by accessing the various social media APIs in
+parallel.
 
 .. |Build Status| image:: https://travis-ci.org/debrouwere/social-shares.svg?branch=master
    :target: https://travis-ci.org/debrouwere/social-shares

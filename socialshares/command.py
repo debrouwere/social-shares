@@ -83,10 +83,12 @@ pip install socialshares
 pip install grequests
 ```
 
-If [grequests](https://github.com/kennethreitz/grequests) is installed, 
-`social-shares` will use it to speed up share count fetching. However, 
-note that `grequests` can be wonky, in particular on Python 2.7.9.
-If you see any errors, `pip uninstall grequests`.
+If [requests_futures][requests_futures] and (for Python 2.x) [futures][futures]
+are installed, `social-shares` will use these packages to speed up share count 
+fetching, by accessing the various social media APIs in parallel.
+
+[requests_futures]: https://github.com/ross/requests-futures
+[futures]: https://code.google.com/p/pythonfutures/
 """
 
 import sys
@@ -96,7 +98,7 @@ import socialshares
 
 
 def main():
-    arguments = docopt(__doc__, version='Social shares 0.3')
+    arguments = docopt(__doc__, version='Social shares ' + socialshares.__VERSION__)
     url = arguments['<url>']
     attempts = int(arguments['--retry']) + 1
     plain = arguments['--plain']
@@ -116,6 +118,6 @@ def main():
                 l = l + count.values()
             else:
                 l.append(count)
-        print " ".join(map(str, l))
+        print(" ".join(map(str, l)))
     else:
-        print json.dumps(counts, indent=2)
+        print(json.dumps(counts, indent=2))
