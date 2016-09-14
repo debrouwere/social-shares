@@ -26,26 +26,21 @@ class PythonTestCase(object):
     @property
     def defaults(self):
         return dict(
-            attempts=3, 
-            concurrent=self.CONCURRENT, 
+            attempts=3,
+            concurrent=self.CONCURRENT,
             )
 
     @property
     def lax_defaults(self):
         return dict(
-            attempts=9, 
-            concurrent=self.CONCURRENT, 
+            attempts=9,
+            concurrent=self.CONCURRENT,
             )
 
     def test_facebook(self):
         counts = socialshares.fetch(url, ['facebook'], **self.defaults)
         self.assertIn('facebook', counts)
-        self.assertIsInstance(counts['facebook'], int)
-
-    def test_facebookfql(self):
-        counts = socialshares.fetch(url, ['facebookfql'], )
-        self.assertIn('facebookfql', counts)
-        self.assertIsInstance(counts['facebookfql'], dict)
+        self.assertIsInstance(counts['facebook']['share_count'], int)
 
     def test_google(self):
         counts = socialshares.fetch(url, ['google'], **self.defaults)
@@ -66,11 +61,6 @@ class PythonTestCase(object):
         counts = socialshares.fetch(url, ['reddit'], **self.defaults)
         self.assertIn('reddit', counts)
         self.assertIsInstance(counts['reddit'], dict)
-
-    def test_twitter(self):
-        counts = socialshares.fetch(url, ['twitter'], **self.defaults)
-        self.assertIn('twitter', counts)
-        self.assertIsInstance(counts['twitter'], int)
 
     def test_default(self):
         counts = socialshares.fetch(url, **self.lax_defaults)
@@ -98,20 +88,19 @@ class PythonAsynchronousTestCase(VerboseTestCase, PythonTestCase):
 
 class CLITestCase(unittest.TestCase):
     def test_cli_json(self):
-        py = socialshares.fetch(url)
+        py = socialshares.fetch(url, ['facebook'])['facebook']
         cli_raw = subprocess.check_output('socialshares {url}'.format(url=url), shell=True)
-        cli = json.loads(cli_raw.decode('utf-8'))
+        cli = json.loads(cli_raw.decode('utf-8'))['facebook']
 
         for k, v in py.items():
             self.assertIn(k, cli)
-            self.assertIsInstance(v, int)
             self.assertTrue(is_close(py[k], cli[k]))
 
     def test_cli_plain(self):
-        py = socialshares.fetch(url, ['twitter'])
-        cli_raw = subprocess.check_output('socialshares {url} twitter --plain'.format(url=url), shell=True)
+        py = socialshares.fetch(url, ['pinterest'])
+        cli_raw = subprocess.check_output('socialshares {url} pinterest --plain'.format(url=url), shell=True)
         cli = int(cli_raw)
-        self.assertEqual(py['twitter'], cli)
+        self.assertEqual(py['pinterest'], cli)
 
 
 # some platforms are banned or otherwise don't work reliably in our CI environment

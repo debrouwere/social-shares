@@ -1,17 +1,14 @@
-from . import delicious, facebook, facebookfql, google, linkedin, pinterest, reddit, twitter
+from . import facebook, google, linkedin, pinterest, reddit
 
 default = [
-    'facebook', 
-    'twitter', 
+    'facebook',
     ]
 
 supported = default + [
-    # 'delicious', 
-    'facebookfql', 
-    'google', 
-    'linkedin', 
-    'pinterest', 
-    'reddit', 
+    'google',
+    'linkedin',
+    'pinterest',
+    'reddit',
     ]
 
 _platforms = globals()

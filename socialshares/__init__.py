@@ -9,10 +9,10 @@ __version__ = pkg_resources.get_distribution("socialshares").version
 
 
 headers = {
-    'User-Agent': 'Pollster <https://github.com/debrouwere/pollster>',
+    'User-Agent': 'Social Shares <https://github.com/debrouwere/social-shares>',
 }
 
-fetchers = platforms    
+fetchers = platforms
 
 def fetch_once(session, url, platforms):
     handlers = []
@@ -25,13 +25,13 @@ def fetch_once(session, url, platforms):
             requests.append(handler.fetch(session, url))
         else:
             raise ValueError()
-        
+
     responses = utils.get_responses(requests)
 
     counts = {}
     for handler, response in zip(handlers, responses):
         # * ValueErrors indicate no JSON could be decoded
-        # * KeyErrors and IndexErrors indicate the JSON didn't 
+        # * KeyErrors and IndexErrors indicate the JSON didn't
         #   contain the data we were looking for
         # * IOErrors are raised on purpose for all other
         #   error conditions

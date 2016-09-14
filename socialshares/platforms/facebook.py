@@ -6,4 +6,4 @@ def parse(response):
         raise IOError()
 
     data = response.json()
-    return data['shares']
+    return data['share']
